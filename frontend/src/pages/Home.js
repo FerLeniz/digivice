@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import './Home.css'; // Import the CSS file for styling
 
 function Home() {
-    const [digimon, setDigimon] = useState([]); 
-    const [loading, setLoading] = useState(true); 
-    const [error, setError] = useState(null); 
+    const [digimon, setDigimon] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [page, setPage] = useState(0);
 
     // Fetch Digimon data from the API
     useEffect(() => {
         const fetchDigimon = async () => {
-            setLoading(true); 
-            setError(null); 
+            setLoading(true);
+            setError(null);
             try {
                 const response = await fetch(`https://digi-api.com/api/v1/digimon?page=${page}`);
                 if (!response.ok) {
@@ -61,8 +61,17 @@ function Home() {
             <div className="digimon-list">
                 {digimon.map((digi) => (
                     <div key={digi.id} className="digimon-card">
-                        <h2>{digi.name}</h2>
-                        <img src={digi.image} alt={digi.name} className="digimon-image" />
+                        <div className="card">
+                            <div className="card-header">{digi.name}</div>
+                            <div className="card-image">
+                                <img src={digi.image} alt={digi.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                            <div className="card-stats">
+                                <div>Level: {digi.level}</div>
+                                <div>Attribute: {digi.attribute}</div>
+                            </div>
+                            <div className="card-footer">Type: {digi.type}</div>
+                        </div>
                     </div>
                 ))}
             </div>
