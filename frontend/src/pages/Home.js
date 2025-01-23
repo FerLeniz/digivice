@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css'; // Import the CSS file for styling
+import MenuBar from '../components/MenuBar';
 
 function Home() {
     const [digimon, setDigimon] = useState([]);
@@ -48,34 +49,38 @@ function Home() {
     }
 
     return (
-        <div className="home-container">
-            <h2 className="title">Search info about Digimon</h2>
-            <div className="search-container">
-                <button onClick={handlePrevious} disabled={page === 0}>
-                    Previous
-                </button>
-                <button onClick={handleNext}>
-                    Next
-                </button>
-            </div>
-            <div className="digimon-list">
-                {digimon.map((digi) => (
-                    <div key={digi.id} className="digimon-card">
-                        <div className="card">
-                            <div className="card-header">{digi.name}</div>
-                            <div className="card-image">
-                                <img src={digi.image} alt={digi.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <>
+            <MenuBar />
+            <div className="home-container">
+                <h2 className="title">Search info about Digimon</h2>
+                <div className="search-container">
+                    <button onClick={handlePrevious} disabled={page === 0}>
+                        Previous
+                    </button>
+                    <button onClick={handleNext}>
+                        Next
+                    </button>
+                </div>
+                <div className="digimon-list">
+                    {digimon.map((digi) => (
+                        <div key={digi.id} className="digimon-card">
+                            <div className="card">
+                                <div className="card-header">{digi.name}</div>
+                                <div className="card-image">
+                                    <img src={digi.image} alt={digi.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </div>
+                                <div className="card-stats">
+                                    <div>Level: {digi.level}</div>
+                                    <div>Attribute: {digi.attribute}</div>
+                                </div>
+                                <div className="card-footer">Type: {digi.type}</div>
                             </div>
-                            <div className="card-stats">
-                                <div>Level: {digi.level}</div>
-                                <div>Attribute: {digi.attribute}</div>
-                            </div>
-                            <div className="card-footer">Type: {digi.type}</div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
+
     );
 }
 

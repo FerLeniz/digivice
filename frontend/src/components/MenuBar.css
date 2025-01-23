@@ -1,33 +1,86 @@
 /* src/components/MenuBar.css */
 .menu-bar {
-    background-color: #333;
-    overflow: hidden;
-  }
-  
-  .menu-bar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-  
-  .menu-bar li {
-    float: left;
-  }
-  
-  .menu-bar li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  .menu-bar li a:hover {
-    background-color: #111;
-  }
-  
-  .menu-bar .right {
-    margin-left: auto;
-  }
-  
+  background-color: #333;
+  /* overflow: hidden; MY DROPDOWN HAS HIDDEN WHEN I USED THIS PROPERTY */ 
+}
+
+.menu-bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.menu-bar li {
+  position: relative;
+}
+
+.menu-bar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.menu-bar li a:hover {
+  background-color: #111;
+}
+
+/* Right alignment for dropdown button */
+.menu-bar .right {
+  margin-left: auto;
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+  display: flex;
+
+}
+
+.dropdown-btn {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 14px 16px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.dropdown-btn:hover {
+  background-color: #111;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%; 
+  right: 0; 
+  background-color: #444; 
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-content ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none; 
+  padding: 0; 
+}
+
+.dropdown-content li {
+  padding: 12px 16px;
+}
+
+.dropdown-content li a {
+  color: rgb(205, 184, 184);
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content li a:hover {
+  background-color: #555;
+}

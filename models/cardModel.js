@@ -5,7 +5,7 @@ const cardSchema = new mongoose.Schema({
     name: { type: String, required: true },
     type: { type: String},
     level: { type: String },
-    attribute: { type: Number },
+    attribute: { type: String },
     image: {type:String },
     href: {type: String},
     id: {type: Number}

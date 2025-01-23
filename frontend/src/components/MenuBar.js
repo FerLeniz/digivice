@@ -1,19 +1,35 @@
 // src/components/MenuBar.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './MenuBar.css'; // Optional: for styling
+import './MenuBar.css';
 
-function MenuBar() {
+function MenuBar({ isAdmin }) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  console.log("ASI EMPIEZA DROPDOWN!! = ", dropdownOpen)
+  const toggleDropdown = () => {
+    console.log("EXECUTE DROPDOWN !!!",dropdownOpen)
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
     <nav className="menu-bar">
       <ul>
+        {/* Left side: Pages */}
         <li><Link to="/">Pages</Link></li>
-        {/* <li><Link to="/news">News</Link></li>
-        <li><Link to="/prediction">Prediction</Link></li>
-        <li><Link to="/stocks">List of Stocks</Link></li>
-        <li><Link to="/portfolio">Portfolio</Link></li>
-        <li className="right"><Link to="/signup">Sign Up</Link></li>
-        <li className="right"><Link to="/signin">Sign In</Link></li> */}
+
+        {/* Right side: Dropdown */}
+        <li className="right dropdown">
+          <button onClick={toggleDropdown} className="dropdown-btn">
+            Menu
+          </button>
+          {dropdownOpen && (
+            <ul className="dropdown-content">
+              {isAdmin && <li><Link to="/admin">Admin</Link></li>}
+              <li><Link to="/signup">Sign Up</Link></li>
+              <li><Link to="/signin">Sign In</Link></li>
+            </ul>
+          )}
+        </li>
       </ul>
     </nav>
   );
