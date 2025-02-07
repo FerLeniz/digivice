@@ -1,3 +1,4 @@
 /frontend/node_modules
 /node_modules
 .env
+digimon_backup_mongo.csv

@@ -7,7 +7,7 @@ function SignUp() {
   return (
     <>
       <MenuBar />
-      <h2>Sign In</h2>
+      <h2>Sign UP</h2>
     </>
   );
 }

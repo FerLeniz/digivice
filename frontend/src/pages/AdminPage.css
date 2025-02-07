@@ -1,0 +1,113 @@
+/* General styling for the admin page */
+.admin-page {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-page h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .list-column{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .list-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-right: solid;
+    border-right-color: red;
+    margin: 10px 0;
+    box-shadow: 5px 5px 5px red;
+  }
+  .list-item:hover{
+    background-color: #d1dae3;
+  }
+
+  .edit-delete{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .edit-delete p{
+    margin: 0 10px;
+  }
+
+
+  /* PRUEBA DE CSS EN EL NUEVO FORM: */
+
+  /* General styling for the admin page */
+
+/* Section for adding new Digimon */
+.add-digimon {
+  margin-bottom: 30px;
+  padding: 15px;
+  /* background-color: #fff; */
+  background-color: #8cb6e4;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.add-digimon h2 {
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.add-digimon input,
+.add-digimon select,
+.add-digimon textarea {
+  width: 98%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.add-digimon select {
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+.add-digimon input[type="file"] {
+  padding: 5px;
+  border: none;
+  font-size: 14px;
+  background-color: transparent;
+}
+
+.add-digimon button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-digimon button:hover {
+  background-color: #0056b3;
+}
+
+/* Digimon list section */
+.digimon-list {
+  margin-top: 20px;
+}
+
+.digimon-list h2 {
+  margin-bottom: 15px;
+  color: #444;
+}

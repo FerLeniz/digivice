@@ -5,9 +5,7 @@ import './MenuBar.css';
 
 function MenuBar({ isAdmin }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  console.log("ASI EMPIEZA DROPDOWN!! = ", dropdownOpen)
   const toggleDropdown = () => {
-    console.log("EXECUTE DROPDOWN !!!",dropdownOpen)
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -24,7 +22,8 @@ function MenuBar({ isAdmin }) {
           </button>
           {dropdownOpen && (
             <ul className="dropdown-content">
-              {isAdmin && <li><Link to="/admin">Admin</Link></li>}
+              {/* {isAdmin && <li><Link to="/admin">Admin</Link></li>} */}
+              <li><Link to="/admin">Admin</Link></li>
               <li><Link to="/signup">Sign Up</Link></li>
               <li><Link to="/signin">Sign In</Link></li>
             </ul>
