@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const itemRoutes = require('./routes/cardRoutes');
+const userRoutes = require('./routes/userRoutes')
 const cors = require('cors');
 const path = require('path');
 
@@ -19,13 +20,13 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 // Middleware to parse JSON requests
-//app.use(cors());
 app.use(cors());
 
 app.use(express.json());
 
 // Use your defined routes
 app.use('/api', itemRoutes);
+app.use('/api/auth', userRoutes);
 
 // Serve the 'uploads' folder as static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

@@ -1,12 +1,12 @@
+import './Home.css';
 import React, { useState, useEffect } from 'react';
-import './Home.css'; // Import the CSS file for styling
 import MenuBar from '../components/MenuBar';
 
 function Home() {
     const [digimon, setDigimon] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
 
     // Fetch Digimon data from the API
     useEffect(() => {
@@ -14,7 +14,9 @@ function Home() {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`https://digi-api.com/api/v1/digimon?page=${page}`);
+                const response = await fetch(`http://localhost:3001/api/digipage?page=${page}`);
+                console.log("pagina es: ", `http://localhost:3001/api/digipage?page=${page}`)
+                //http://localhost:3001/api/digipage?page=2
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
                 }
@@ -29,15 +31,14 @@ function Home() {
         fetchDigimon();
     }, [page]);
 
-    // Handle Previous and Next button clicks
     const handlePrevious = () => {
         if (page > 0) {
-            setPage(page - 1); // Decrement page, ensuring it doesn't go below 0
+            setPage(page - 1);
         }
     };
 
     const handleNext = () => {
-        setPage(page + 1); // Increment page
+        setPage(page + 1);
     };
 
     if (loading) {
@@ -52,9 +53,9 @@ function Home() {
         <>
             <MenuBar />
             <div className="home-container">
-                <h2 className="title">Search info about Digimon</h2>
+                <h2 className="title">Discover Your Favorite Digimon & Bring It Home!</h2>
                 <div className="search-container">
-                    <button onClick={handlePrevious} disabled={page === 0}>
+                    <button onClick={handlePrevious} disabled={page === 1}>
                         Previous
                     </button>
                     <button onClick={handleNext}>
@@ -70,10 +71,10 @@ function Home() {
                                     <img src={digi.image} alt={digi.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 </div>
                                 <div className="card-stats">
-                                    <div>Level: {digi.level}</div>
-                                    <div>Attribute: {digi.attribute}</div>
+                                    <div>Level: {digi.level ? digi.level : "Unknown"}</div>
+                                    <div>Attribute: {digi.attribute ? digi.attribute : "Unknown"}</div>
                                 </div>
-                                <div className="card-footer">Type: {digi.type}</div>
+                                <div className="card-footer">Type: {digi.type ? digi.type : "Unknown"}</div>
                             </div>
                         </div>
                     ))}

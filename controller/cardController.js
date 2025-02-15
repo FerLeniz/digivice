@@ -255,4 +255,45 @@ const updateDigimon = async (req, res) => {
     }
 };
 
-module.exports = { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon};
+const digimonPage = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = 10; 
+        const skip = (page - 1) * limit;
+
+        const totalElements = await DigimonCard.countDocuments(); 
+        const totalPages = Math.ceil(totalElements / limit);
+
+        // Fetch Digimons for the requested page
+        const digimons = await DigimonCard.find().skip(skip).limit(limit);
+
+        // Format Digimon data to match the required response
+        const formattedDigimons = digimons.map(digimon => ({
+            id: digimon.id,
+            name: digimon.name,
+            level: digimon.level,
+            attribute: digimon.attribute,
+            type:digimon.type, 
+            image: digimon.image
+        }));
+
+        // Construct pagination links with your backend URL
+        const baseUrl = "http://localhost:3001/api/digipage?page=";
+        const pageable = {
+            currentPage:page,
+            elementsOnPage: formattedDigimons.length,
+            totalElements,
+            totalPages,
+            previousPage: page > 1 ? `${baseUrl}${page - 1}` : null,
+            nextPage: page < totalPages ? `${baseUrl}${page + 1}` : null
+        };
+
+        res.json({ content: formattedDigimons, pageable });
+    } catch (error) {
+        console.error("Error fetching Digimon page:", error);
+        res.status(500).json({ message: "Error retrieving Digimon data", error });
+    }
+};
+
+
+module.exports = { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon, digimonPage };

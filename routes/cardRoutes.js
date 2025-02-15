@@ -1,9 +1,12 @@
 const express = require('express');
-const { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon } = require('../controller/cardController');
+const { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon,digimonPage } = require('../controller/cardController');
 const router = express.Router();
 
 // Define a GET route to fetch all items
 router.get('/items', getItems);
+
+//get items per page
+router.get('/digipage', digimonPage)
 
 // Define a GET route to fetch and store Digimon data
 router.get('/fetch-digimon', fetchAndStoreDigimon);
