@@ -1,16 +1,17 @@
-// src/pages/SignIn.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MenuBar from '../components/MenuBar';
-import './SignIn.css'
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { loginSuccess } from '../redux/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
+import './SignIn.css';
 
 function SignIn() {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Handle input changes
   const handleChange = (e) => {
@@ -22,27 +23,31 @@ function SignIn() {
     e.preventDefault();
     setError('');
     setLoading(true);
-  
+
     try {
-      await axios.post('http://localhost:3001/api/auth/signin', formData);
+      console.log("before axios!! ")
+      const response = await axios.post('http://localhost:3001/api/auth/signin', formData, {
+        withCredentials: true, // Ensure cookies are stored
+      });
+
+      dispatch(loginSuccess(response.data.user)); 
       toast.success('SignIn successful!');
       
-      // Delay navigation to allow toast to be visible
+      // Delay navigation for better user experience
       setTimeout(() => {
-        navigate('/login');
+        navigate('/');
       }, 1500);
     } catch (err) {
-      setError(err.response?.data?.message || 'Signup failed');
+      setError(err.response?.data?.message || 'Sign-in failed');
+      toast.error(err.response?.data?.message || 'Sign-in failed');
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <>
-      <MenuBar />
-      <ToastContainer/>
+      <ToastContainer />
       <div className="signin-container">
         <h2>Sign In</h2>
         {error && <p className="error1">Error: {error}</p>}

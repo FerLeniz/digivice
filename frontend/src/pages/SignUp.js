@@ -3,14 +3,16 @@ import './SignUp.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import MenuBar from '../components/MenuBar';
-
+import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import { loginSuccess } from '../redux/authSlice';
 
 function SignUp() {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Handle input changes
   const handleChange = (e) => {
@@ -24,9 +26,19 @@ function SignUp() {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:3001/api/auth/signup', formData);
-      alert('Signup successful!'); 
-      navigate('/login'); 
+      const response = await axios.post('http://localhost:3001/api/auth/signup', formData, {
+        withCredentials: true,
+      });
+
+      const { user } = response.data;
+      dispatch(loginSuccess(user));
+
+      toast.success('Sign up successful!');
+
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
+      
     } catch (err) {
       setError(err.response?.data?.message || 'Signup failed');
     } finally {
@@ -36,7 +48,7 @@ function SignUp() {
 
   return (
     <>
-      <MenuBar />
+      <ToastContainer />
       <div className="signup-container">
         <h2>Sign Up</h2>
         {error && <p className="error">{error}</p>}

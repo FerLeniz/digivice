@@ -20,7 +20,10 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 // Middleware to parse JSON requests
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3002', // Frontend URL
+  credentials: true, // Allow cookies
+}));
 
 app.use(express.json());
 

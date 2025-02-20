@@ -1,9 +1,20 @@
-// src/components/MenuBar.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './MenuBar.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../redux/authSlice';
 
-function MenuBar({ isAdmin }) {
+function MenuBar() {
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user = useSelector((state) => state.auth.user);
+  const isAdmin = user?.role === 'admin'; // Check if user is admin
+
+  const handleLogout = () => {
+    dispatch(logout());
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  };
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -12,20 +23,24 @@ function MenuBar({ isAdmin }) {
   return (
     <nav className="menu-bar">
       <ul>
-        {/* Left side: Pages */}
         <li><Link to="/">Pages</Link></li>
-
-        {/* Right side: Dropdown */}
         <li className="right dropdown">
           <button onClick={toggleDropdown} className="dropdown-btn">
-            Menu
+            {user? `Hello, ${user.name}` : "Hello,sign in"}
           </button>
           {dropdownOpen && (
             <ul className="dropdown-content">
-              {/* {isAdmin && <li><Link to="/admin">Admin</Link></li>} */}
-              <li><Link to="/admin">Admin</Link></li>
-              <li><Link to="/signup">Sign Up</Link></li>
-              <li><Link to="/signin">Sign In</Link></li>
+              {isAdmin && <li><Link to="/admin">Admin</Link></li>}
+              {isAuthenticated ? (
+                <>
+                  <li><Link onClick={handleLogout} >Logout</Link></li>
+                </>
+              ) : (
+                <>
+                  <li><Link to="/signup">Sign Up</Link></li>
+                  <li><Link to="/signin">Sign In</Link></li>
+                </>
+              )}
             </ul>
           )}
         </li>
