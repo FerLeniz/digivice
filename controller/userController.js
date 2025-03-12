@@ -67,6 +67,18 @@ const signUp = async (req, res) => {
     }
 };
 
+const logout = (req, res) => {
+  res.cookie('token', '', { 
+    httpOnly: true, 
+    expires: new Date(0), // Expire immediately
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'Strict'
+  });
+
+  res.status(200).json({ message: 'Logged out successfully' });
+};
+
+
 const likeCard = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -127,5 +139,5 @@ const getLikedCards = async (req, res) => {
 };
 
   
-  module.exports = { signIn, signUp, likeCard, getLikedCards, getCurrentUser };
+  module.exports = { signIn, signUp, likeCard, getLikedCards, getCurrentUser, logout };
 

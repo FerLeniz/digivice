@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { loginSuccess, setLikedCards } from '../redux/authSlice';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import './SignIn.css';
 
 function SignIn() {
@@ -46,7 +46,6 @@ function SignIn() {
 
   return (
     <>
-      <ToastContainer />
       <div className="signin-container">
         <h2>Sign In</h2>
         {error && <p className="error1">Error: {error}</p>}

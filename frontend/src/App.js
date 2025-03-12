@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess } from './redux/authSlice';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer } from "react-toastify";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
 
   return (
     <Router>
+      <ToastContainer autoClose={2000} /> 
       <div>
         <Routes>
           <Route path="/" element={<Home />} />

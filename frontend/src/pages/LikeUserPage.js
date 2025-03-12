@@ -3,7 +3,7 @@ import "./LikeUserPage.css";
 import MenuBar from "../components/MenuBar";
 import Card from "../components/DigimonCard";
 import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { toggleLike } from '../redux/authSlice';
@@ -21,6 +21,10 @@ function LikeUserPage() {
           withCredentials: true,
         });
         if (response.data.likedCards.length > 0) setCards(response.data.likedCards);
+
+        console.log('response.data:', response.data)
+        console.log('USER STATUS: ', user)
+        console.log('CHECK LIKECARDS FROM USER: ',user.likedCards)
       } catch (error) {
         console.error("Error fetching liked cards", error);
       }
@@ -47,7 +51,6 @@ function LikeUserPage() {
   return (
     <>
       <MenuBar />
-      <ToastContainer />
       <div className="like-container">
         {cards.length > 0 ? <h1>YOUR FAVORITE CARDS:</h1> : <h1 className="no-items-message">Items not added yet!</h1>}
         {cards.length > 0 && (

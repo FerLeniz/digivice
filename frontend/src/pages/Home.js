@@ -1,9 +1,8 @@
 import './Home.css';
 import React, { useState, useEffect } from 'react';
 import MenuBar from '../components/MenuBar';
-import { Heart, SquarePlus } from "lucide-react";
 import { useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { toggleLike } from '../redux/authSlice';
@@ -97,7 +96,6 @@ function Home() {
     return (
         <>
             <MenuBar />
-            <ToastContainer />
             <div className="home-container">
                 <h2 className="title">Discover Your Favorite Digimon & Bring It Home!</h2>
                 <h2>Total digimon found: {totalDigimons}</h2>
