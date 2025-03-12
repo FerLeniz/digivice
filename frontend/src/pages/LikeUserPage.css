@@ -1,0 +1,20 @@
+.like-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #0d1b2a, #1b263b, #415a77);
+}
+
+.like-container h1,.like-container h2 {
+    margin: 15px 0;
+    color: aliceblue;
+}
+
+.cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}

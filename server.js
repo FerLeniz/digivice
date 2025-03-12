@@ -5,6 +5,7 @@ const itemRoutes = require('./routes/cardRoutes');
 const userRoutes = require('./routes/userRoutes')
 const cors = require('cors');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 
 dotenv.config();
 
@@ -21,11 +22,12 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Middleware to parse JSON requests
 app.use(cors({
-  origin: 'http://localhost:3002', // Frontend URL
+  origin: 'http://localhost:3000', // Frontend URL, BEFORE WAS http://localhost:3002
   credentials: true, // Allow cookies
 }));
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Use your defined routes
 app.use('/api', itemRoutes);

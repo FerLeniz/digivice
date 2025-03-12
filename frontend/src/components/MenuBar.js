@@ -24,6 +24,7 @@ function MenuBar() {
     <nav className="menu-bar">
       <ul>
         <li><Link to="/">Pages</Link></li>
+        <li><Link to="/like">Favorites</Link></li>
         <li className="right dropdown">
           <button onClick={toggleDropdown} className="dropdown-btn">
             {user? `Hello, ${user.name}` : "Hello,sign in"}

@@ -1,0 +1,90 @@
+.digimon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 225px;
+    overflow: hidden;
+    box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5);
+    border-radius: 10px;
+    margin: 8px 0;
+}
+
+/* Card styles for each Digimon */
+.card {
+    width: 100%;
+    background: linear-gradient(to bottom, #66ccff, #003366);
+    border: 3px solid #002244;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+}
+
+
+.card-header {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+    white-space: nowrap; /* Prevent the text from wrapping */
+     text-overflow: ellipsis; /*add ellipsis */
+    max-width: 100%;
+    height: 30px;
+    line-height: 30px; 
+    box-sizing: border-box; /*Include padding and border in height */
+}
+
+.card-image {
+    height: 250px;
+    background-color: #444;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.card-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.card-stats div {
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+}
+
+.card-footer {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.price-section{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.price-section-icon{
+    cursor: pointer;
+    margin:0;
+}
+
+.price-section p {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin:0;
+}

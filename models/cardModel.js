@@ -8,10 +8,11 @@ const cardSchema = new mongoose.Schema({
     attribute: { type: String,required: true  },
     image: {type:String },
     href: {type: String},
-    id: {type: Number}
+    id: {type: Number},
+    price:{type:Number,required:true}
 });
 
 // Create a model using the schema
-const Digimon = mongoose.model('Digimon', cardSchema);
+const DigimonCard = mongoose.model('Digimon', cardSchema);
 
-module.exports = Digimon;
+module.exports = DigimonCard;

@@ -258,29 +258,38 @@ const updateDigimon = async (req, res) => {
 const digimonPage = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = 10; 
+        const limit = 10;
         const skip = (page - 1) * limit;
+        const { level, type, attribute } = req.query;
 
-        const totalElements = await DigimonCard.countDocuments(); 
+        // Build filter object dynamically
+        let filter = {};
+        if (level) filter.level = level;
+        if (type) filter.type = type;
+        if (attribute) filter.attribute = attribute;
+
+        // Get total count of filtered results
+        const totalElements = await DigimonCard.countDocuments(filter);
         const totalPages = Math.ceil(totalElements / limit);
 
-        // Fetch Digimons for the requested page
-        const digimons = await DigimonCard.find().skip(skip).limit(limit);
+        // Fetch paginated and filtered Digimon cards
+        const digimons = await DigimonCard.find(filter).skip(skip).limit(limit);
 
-        // Format Digimon data to match the required response
+        // Format response
         const formattedDigimons = digimons.map(digimon => ({
+            _id: digimon._id,
             id: digimon.id,
             name: digimon.name,
             level: digimon.level,
             attribute: digimon.attribute,
-            type:digimon.type, 
-            image: digimon.image
+            type: digimon.type,
+            image: digimon.image,
+            price: digimon.price
         }));
 
-        // Construct pagination links with your backend URL
-        const baseUrl = "http://localhost:3001/api/digipage?page=";
+        const baseUrl = `http://localhost:3001/api/digipage?page=`;
         const pageable = {
-            currentPage:page,
+            currentPage: page,
             elementsOnPage: formattedDigimons.length,
             totalElements,
             totalPages,
@@ -295,5 +304,37 @@ const digimonPage = async (req, res) => {
     }
 };
 
+const addPriceCards = async (req, res) => {
+    try {
+        const cards = await DigimonCard.find();
 
-module.exports = { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon, digimonPage };
+        // Iterate through each card and assign a price
+        for (const card of cards) {
+            const price = Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+
+            // Update the document with the price
+            await DigimonCard.updateOne({ _id: card._id }, { $set: { price: price } });
+        }
+
+        res.json({ message: "Prices added to all Digimon cards successfully" });
+    } catch (error) {
+        console.error("Error adding prices to Digimon cards:", error);
+        res.status(500).json({ message: "Error updating Digimon card prices", error: error.message });
+    }
+};
+
+const getFilters = async (req, res) => {
+    try {
+        const levels = (await DigimonCard.distinct("level")).filter(level => level !== null);
+        const types = (await DigimonCard.distinct("type")).filter(type => type !== null);
+        const attributes = (await DigimonCard.distinct("attribute")).filter(attribute => attribute !== null);
+
+        res.json({ levels, types, attributes });
+    } catch (error) {
+        console.error("Error getting filters from Mongo:", error);
+        res.status(500).json({ message: "Error getting filters from Mongo", error: error.message });
+    }
+};
+
+
+module.exports = { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon, digimonPage, addPriceCards, getFilters };

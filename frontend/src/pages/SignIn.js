@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { loginSuccess } from '../redux/authSlice';
+import { loginSuccess, setLikedCards } from '../redux/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import './SignIn.css';
 
@@ -25,14 +25,13 @@ function SignIn() {
     setLoading(true);
 
     try {
-      console.log("before axios!! ")
       const response = await axios.post('http://localhost:3001/api/auth/signin', formData, {
-        withCredentials: true, // Ensure cookies are stored
+        withCredentials: true,
       });
 
-      dispatch(loginSuccess(response.data.user)); 
+      dispatch(loginSuccess(response.data.user));
       toast.success('SignIn successful!');
-      
+
       // Delay navigation for better user experience
       setTimeout(() => {
         navigate('/');

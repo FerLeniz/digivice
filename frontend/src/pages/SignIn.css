@@ -9,7 +9,7 @@
     background: linear-gradient(to bottom, #0d1b2a, #1b263b, #415a77);
 }
 
-h2 {
+.signin-container h2 {
     margin-bottom: 50px;
     font-size: 42px;
     color: #f6eeee;

@@ -1,5 +1,5 @@
 const express = require('express');
-const { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon,digimonPage } = require('../controller/cardController');
+const { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon, digimonPage, addPriceCards, getFilters } = require('../controller/cardController');
 const router = express.Router();
 
 // Define a GET route to fetch all items
@@ -25,5 +25,11 @@ router.post('/digimons', upload.single('image'), addNewDigimon)
 router.delete('/digimons/:id', deleteDigimon)
 // Method to update a digimon
 router.put('/digimons/:id', upload.single('image'), updateDigimon)
+
+// method to add card price 
+router.get('/priceCards', addPriceCards)
+
+// method to fill the filters
+router.get('/getFilterDropdown', getFilters)
 
 module.exports = router;
