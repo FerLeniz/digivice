@@ -12,6 +12,7 @@ import { loginSuccess } from './redux/authSlice';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer } from "react-toastify";
+import PagesCard from './pages/PagesCard'
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/pages" element={<PagesCard />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/admin" element={<AdminPage />} />

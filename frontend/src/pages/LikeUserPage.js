@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./LikeUserPage.css";
 import MenuBar from "../components/MenuBar";
+import Footer from "../components/Footer"
 import Card from "../components/DigimonCard";
 import { useSelector } from "react-redux";
 import {toast } from "react-toastify";
@@ -61,6 +62,7 @@ function LikeUserPage() {
           </div>
         )}
       </div>
+      <Footer/>
     </>
   );
 }

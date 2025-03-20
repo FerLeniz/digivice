@@ -1,0 +1,52 @@
+.number-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 8px;
+}
+
+.number-pagination button {
+    background-color: rgba(50, 87, 147, 0.8);
+    font-size: 1.2em;
+    padding: 8px 14px;
+    border: 2px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.number-pagination button:hover {
+    background-color: rgb(150, 243, 249);
+    color: black;
+    border-color: black;
+    transform: scale(1.1);
+}
+
+.number-pagination button.active {
+    background-color: #ffcc00;
+    color: black;
+    border-color: #ffcc00;
+    transform: scale(1.1);
+}
+
+/* Arrow Buttons */
+.price-section-icon {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: rgba(162, 186, 225, 0.673);
+}
+
+.price-section-icon:hover {
+    color: rgb(150, 243, 249);
+    transform: scale(1.2);
+}
+
+/* Disabled arrows should be visible but faded */
+.dissapear {
+    opacity: 0.3;
+    pointer-events: none;
+}

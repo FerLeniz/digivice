@@ -48,21 +48,18 @@ const DigimonFilter = ({ onFilterChange }) => {
                     <option key={lvl} value={lvl}>{lvl}</option>
                 ))}
             </select>
-
-            <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
-                <option value="">All Types</option>
-                {types.map((t) => (
-                    <option key={t} value={t}>{t}</option>
-                ))}
-            </select>
-
             <select value={selectedAttribute} onChange={(e) => setSelectedAttribute(e.target.value)}>
                 <option value="">All Attributes</option>
                 {attributes.map((attr) => (
                     <option key={attr} value={attr}>{attr}</option>
                 ))}
             </select>
-
+            <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
+                <option value="">All Types</option>
+                {types.map((t) => (
+                    <option key={t} value={t}>{t}</option>
+                ))}
+            </select>
             <button onClick={() => onFilterChange({ level: selectedLevel, type: selectedType, attribute: selectedAttribute })}>
                 Apply Filters
             </button>

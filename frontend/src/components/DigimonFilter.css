@@ -1,6 +1,7 @@
 .filter-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 15px;
     padding: 15px;
     background: rgba(13, 27, 42, 0.8);

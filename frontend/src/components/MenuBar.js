@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../redux/authSlice';
 import axios from 'axios';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 function MenuBar() {
   const dispatch = useDispatch();
@@ -39,7 +39,8 @@ function MenuBar() {
   return (
     <nav className="menu-bar">
       <ul>
-        <li><Link to="/">Pages</Link></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/pages">Pages</Link></li>
         <li><Link to="/like">Favorites</Link></li>
         <li className="right dropdown">
           <button onClick={toggleDropdown} className="dropdown-btn">
