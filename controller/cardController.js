@@ -1,5 +1,6 @@
 const axios = require('axios');
 const DigimonCard = require('../models/cardModel');
+const UserModel = require('../models/User')
 const fs = require('fs');
 const path = require('path');
 
@@ -336,5 +337,45 @@ const getFilters = async (req, res) => {
     }
 };
 
+const getThreeLikedCards = async (req, res) => {
+    try {
+        const users = await UserModel.find({}, 'likedCards');
 
-module.exports = { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon, digimonPage, addPriceCards, getFilters };
+        const cardLikeCounts = {};
+
+        users.forEach(user => {
+            user.likedCards.forEach(cardId => {
+                cardLikeCounts[cardId] = (cardLikeCounts[cardId] || 0) + 1;
+            });
+        });
+
+
+        const topCards = await Promise.all(
+            Object.entries(cardLikeCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3)
+                .map(async ([cardId, count]) => {
+                    const card = await DigimonCard.findById(cardId);
+
+                    return {
+                        cardId,
+                        likes: count,
+                        name: card.name,
+                        attribute: card.attribute,
+                        level: card.level,
+                        type: card.type,
+                        price: card.price,
+                        image:card.image
+                    };
+                })
+        );
+
+        res.json({ topCards });
+    } catch (error) {
+        console.error("Error getting liked cards:", error);
+        res.status(500).json({ message: "Error getting top liked cards", error: error.message });
+    }
+};
+
+
+module.exports = { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon, digimonPage, addPriceCards, getFilters, getThreeLikedCards };

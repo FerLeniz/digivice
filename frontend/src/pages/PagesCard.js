@@ -1,4 +1,4 @@
-import './Home.css';
+import './PagesCard.css';
 import React, { useState, useEffect } from 'react';
 import MenuBar from '../components/MenuBar';
 import Footer from '../components/Footer'
@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { toggleLike } from '../redux/authSlice';
 import Card from "../components/DigimonCard";
 import DigimonFilter from "../components/DigimonFilter";
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Pagination from '../components/PaginationCards';
 
 function PagesCard() {
@@ -98,13 +97,13 @@ function PagesCard() {
                 <div className="digimon-list">
                     {digimon.length > 0 ? (
                         digimon.map((card) => (
-                            <Card key={card._id} card={card} isLiked={likedCards.has(card._id)} onLike={likeFunction} />
+                            <Card key={card._id} card={card} isLiked={likedCards.has(card._id)} onLike={likeFunction} showPriceSection={true}/>
                         ))
                     ) : (
                         <p className='text-not-found'>No Digimon found.</p>
                     )}
                 </div>
-                <Pagination totalPages={totalPages} page={page} setPage={setPage} />
+                <Pagination totalPages={totalPages} page={page} setPage={setPage}/>
             </div>
             <Footer />
         </>

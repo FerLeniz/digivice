@@ -34,13 +34,13 @@
 }
 
 /* Arrow Buttons */
-.price-section-icon {
+.arrow-icon {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     color: rgba(162, 186, 225, 0.673);
 }
 
-.price-section-icon:hover {
+.arrow-icon:hover {
     color: rgb(150, 243, 249);
     transform: scale(1.2);
 }

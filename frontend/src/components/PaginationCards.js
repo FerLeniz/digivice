@@ -28,7 +28,7 @@ function Pagination({ totalPages, page, setPage }) {
     return (
         <div className="number-pagination">
             <ArrowLeft
-                className={`price-section-icon ${page === 1 ? 'dissapear' : ''}`}
+                className={`arrow-icon ${page === 1 ? 'dissapear' : ''}`}
                 size={45}
                 onClick={handlePrevious}
             />
@@ -42,7 +42,7 @@ function Pagination({ totalPages, page, setPage }) {
                 </button>
             ))}
             <ArrowRight
-                className={`price-section-icon ${page === totalPages ? 'dissapear' : ''}`}
+                className={`arrow-icon ${page === totalPages || totalPages === 0 ? 'dissapear' : ''}`}
                 size={45}
                 onClick={handleNext}
             />
