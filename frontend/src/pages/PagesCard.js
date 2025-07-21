@@ -1,7 +1,7 @@
 import './PagesCard.css';
 import React, { useState, useEffect } from 'react';
 import MenuBar from '../components/MenuBar';
-import Footer from '../components/Footer'
+import Footer from '../components/Footer';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -43,8 +43,8 @@ function PagesCard() {
                     throw new Error('Failed to fetch data');
                 }
                 const data = await response.json();
-                setTotalDigimons(data.pageable.totalElements)
-                setTotalPages(data.pageable.totalPages)
+                setTotalDigimons(data.pageable.totalElements);
+                setTotalPages(data.pageable.totalPages);
                 setDigimon(data.content);
                 setLoading(false);
             } catch (err) {

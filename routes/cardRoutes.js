@@ -1,5 +1,17 @@
 const express = require('express');
-const { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon, digimonPage, addPriceCards, getFilters, getThreeLikedCards } = require('../controller/cardController');
+const { getItems,
+    fetchAndStoreDigimon,
+    getRestOfDigimon,
+    fixDigimonValues,
+    addNewDigimon,
+    deleteDigimon,
+    updateDigimon,
+    digimonPage,
+    addPriceCards,
+    getFilters,
+    getThreeLikedCards,
+    addQuantityCards,
+    quantityPurchased } = require('../controller/cardController');
 const router = express.Router();
 
 // Define a GET route to fetch all items
@@ -34,5 +46,10 @@ router.get('/getFilterDropdown', getFilters)
 
 // get most 3 liked cards
 router.get('/threeLikedCards', getThreeLikedCards)
+
+// add quantity into model 
+router.get('/addquantityitem', addQuantityCards)
+
+router.patch('/cards/:id/buy', quantityPurchased);
 
 module.exports = router;

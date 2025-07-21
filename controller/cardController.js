@@ -305,25 +305,6 @@ const digimonPage = async (req, res) => {
     }
 };
 
-const addPriceCards = async (req, res) => {
-    try {
-        const cards = await DigimonCard.find();
-
-        // Iterate through each card and assign a price
-        for (const card of cards) {
-            const price = Math.floor(Math.random() * (50 - 5 + 1)) + 5;
-
-            // Update the document with the price
-            await DigimonCard.updateOne({ _id: card._id }, { $set: { price: price } });
-        }
-
-        res.json({ message: "Prices added to all Digimon cards successfully" });
-    } catch (error) {
-        console.error("Error adding prices to Digimon cards:", error);
-        res.status(500).json({ message: "Error updating Digimon card prices", error: error.message });
-    }
-};
-
 const getFilters = async (req, res) => {
     try {
         const levels = (await DigimonCard.distinct("level")).filter(level => level !== null);
@@ -365,7 +346,7 @@ const getThreeLikedCards = async (req, res) => {
                         level: card.level,
                         type: card.type,
                         price: card.price,
-                        image:card.image
+                        image: card.image
                     };
                 })
         );
@@ -377,5 +358,71 @@ const getThreeLikedCards = async (req, res) => {
     }
 };
 
+const addPriceCards = async (req, res) => {
+    try {
+        const cards = await DigimonCard.find();
 
-module.exports = { getItems, fetchAndStoreDigimon, getRestOfDigimon, fixDigimonValues, addNewDigimon, deleteDigimon, updateDigimon, digimonPage, addPriceCards, getFilters, getThreeLikedCards };
+        // Iterate through each card and assign a price
+        for (const card of cards) {
+            const price = Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+
+            // Update the document with the price
+            await DigimonCard.updateOne({ _id: card._id }, { $set: { price: price } });
+        }
+
+        res.json({ message: "Prices added to all Digimon cards successfully" });
+    } catch (error) {
+        console.error("Error adding prices to Digimon cards:", error);
+        res.status(500).json({ message: "Error updating Digimon card prices", error: error.message });
+    }
+};
+
+const addQuantityCards = async (req, res) => {
+    try {
+        const cards = await DigimonCard.find();
+
+        for (const card of cards) {
+            const quantity = Math.floor(Math.random() * (10 - 5 + 1)) + 5;
+
+            // Update the document with the quantity
+            await DigimonCard.updateOne({ _id: card._id }, { $set: { quantity: quantity } });
+        }
+
+        res.json({ message: "Quantity added to all Digimon cards successfully" });
+    } catch (error) {
+        console.error("Error adding prices to Digimon cards:", error);
+        res.status(500).json({ message: "Error updating Digimon card prices", error: error.message });
+    }
+}
+
+
+const quantityPurchased = async (req, res) => {
+    const { quantityToBuy } = req.body;
+    try {
+        const card = await DigimonCard.findById(req.params.id);
+        if (!card || card.quantity < quantityToBuy) return res.status(400).json({ message: "Not enough stock" });
+
+        card.quantity -= quantityToBuy;
+        await card.save();
+        res.status(200).json(card);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+module.exports = {
+    getItems,
+    fetchAndStoreDigimon,
+    getRestOfDigimon,
+    fixDigimonValues,
+    addNewDigimon,
+    deleteDigimon,
+    updateDigimon,
+    digimonPage,
+    addPriceCards,
+    getFilters,
+    getThreeLikedCards,
+    addQuantityCards,
+    quantityPurchased
+};
